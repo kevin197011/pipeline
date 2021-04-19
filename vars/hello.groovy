@@ -1,7 +1,8 @@
 #!/usr/bin/env groovy
 
-import io.kevin197011.hello
-import io.kevin197011.time
+import io.kevin197011.Each
+import io.kevin197011.Time
+
 
 def call() {
     //load sharelibrary
@@ -23,7 +24,9 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        hello.printMsg(params.username)
+                        Each.printMsg(params.username)
+                        println(params.isOK)
+                        println(params.item)
                     }
                 }
             }
@@ -33,7 +36,7 @@ def call() {
                     stage('A') {
                         steps {
                             script {
-                                printf('A %s', time.timeFmt())
+                                printf('A %s', Time.timeFormat())
                                 sleep(3000)
                             }
                         }
@@ -41,7 +44,7 @@ def call() {
                     stage('B') {
                         steps {
                             script {
-                                printf('B %s', time.timeFmt())
+                                printf('B %s', Time.timeFormat())
                                 sleep(3000)
                             }
                         }
