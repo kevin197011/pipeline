@@ -1,6 +1,7 @@
 package io.kevin197011
 
 class Deploy {
+
     private String gitRepo
     private String hostIp
 

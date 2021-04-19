@@ -7,7 +7,7 @@ def call() {
     //load sharelibrary
     // def hello = new hello()
     // def time = new time()
-    Deploy deploy = new Deploy("https://github.com/test", "1.2.3.4")
+    def deploy = new Deploy("https://github.com/test", "1.2.3.4")
 
     //pipeline
     pipeline {
