@@ -1,46 +1,50 @@
 #!/usr/bin/env groovy
 
-//load shareibrary
-def hello = new io.kevin197011.helloworld
+def call(){
 
-//pipeline
-pipeline{
-    // agent { node { label "build"}}
-    agent none
+    //load shareibrary
+    def hello = new io.kevin197011.helloworld
 
-    stages{
-        stage("test"){
-            steps{
-                script{
+    //pipeline
+    pipeline {
+        // agent { node { label "build"}}
+        agent none
 
-                    hello.printMsg "devops-user"
+        stages{
+            stage("test"){
+                steps{
+                    script{
+
+                        hello.printMsg "devops-user"
+                    }
                 }
             }
         }
-    }
-    post {
-        always{
-            script{
-                println("always")
-            }
-        }
-
-        success{
-            script{
-                println("success")
-
+        post {
+            always{
+                script{
+                    println("always")
+                }
             }
 
-        }
-        failure{
-            script{
-                println("failure")
-            }
-        }
+            success{
+                script{
+                    println("success")
 
-        aborted{
-            script{
-                println("aborted")
+                }
+
+            }
+            failure{
+                script{
+                    println("failure")
+                }
+            }
+
+            aborted{
+                script{
+                    println("aborted")
+                }
+
             }
 
         }
