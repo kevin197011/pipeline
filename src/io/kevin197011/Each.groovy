@@ -2,8 +2,8 @@ package io.kevin197011
 
 class Each {
 
-    static void printMsg(String name) {
-        printf("hello %s", name)
+    static String printMsg(String name) {
+        return sprintf("hello %s", name)
     }
 
 }

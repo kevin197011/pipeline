@@ -24,9 +24,9 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        Each.printMsg(params.username)
-                        println(params.isOK)
-                        println(params.item)
+                        println Each.printMsg(params.username)
+                        println params.isOK
+                        println params.item
                     }
                 }
             }
@@ -37,7 +37,7 @@ def call() {
                         steps {
                             script {
                                 printf('A %s', Time.timeFormat())
-                                sleep(3000)
+                                sleep(300)
                             }
                         }
                     }
@@ -45,7 +45,7 @@ def call() {
                         steps {
                             script {
                                 printf('B %s', Time.timeFormat())
-                                sleep(3000)
+                                sleep(300)
                             }
                         }
                     }
