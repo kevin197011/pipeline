@@ -9,44 +9,21 @@ def call() {
         // agent { node { label "build"}}
         agent any
 
+
+    parameters {
+        string(defaultValue: 'user1', name: 'username', trim: true description: 'username')
+        booleanParam(defaultValue: false, name: 'isOk', description: 'sure?')
+        choice(choices: ['A', 'B', 'C'], name: 'item', description: 'which one?')
+    }
+
+
+
+
         stages {
-
-            stage('parameters') {
-                steps {
-                    script {
-                        properties([
-                        parameters([
-                            choice(
-                                choices: ['ONE', 'TWO'],
-                                name: 'PARAMETER_01'
-                            ),
-                            booleanParam(
-                                defaultValue: true,
-                                description: 'SURE?',
-                                name: 'BOOLEAN'
-                            ),
-                            text(
-                                defaultValue: '''
-                                this is a multi-line
-                                string parameter example
-                                ''',
-                                name: 'MULTI-LINE-STRING'
-                            ),
-                            string(
-                                defaultValue: 'user1',
-                                name: 'username',
-                                trim: true
-                            )
-                        ])
-                    ])
-                    }
-                }
-            }
-
             stage('test') {
                 steps {
                     script {
-                        helloworld.printMsg ${params.DEPLOY_ENV}
+                        helloworld.printMsg ${params.username}
                     }
                 }
             }
