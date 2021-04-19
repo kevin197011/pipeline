@@ -3,7 +3,7 @@
 def call(){
 
     //load shareibrary
-    def hello = new io.kevin197011.helloworld()
+    def helloworld = new io.kevin197011.helloworld()
 
     //pipeline
     pipeline {
@@ -15,7 +15,7 @@ def call(){
                 steps{
                     script{
 
-                        hello.printMsg "devops-user"
+                        helloworld.printMsg "devops-user"
                     }
                 }
             }
