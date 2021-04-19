@@ -5,7 +5,9 @@ https://github.com/jenkinsci/pipeline-examples
 
 
 ```bash
-Usage:
-    @Library('devops-lib@master') _
-    
+# jenkinsfile
+
+@Library('devops-lib@master') _
+hello()
+
 ```

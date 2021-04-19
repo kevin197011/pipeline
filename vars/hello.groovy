@@ -9,16 +9,11 @@ def call() {
         // agent { node { label "build"}}
         agent any
 
-
-    parameters {
-
-        string(defaultValue: 'user1', name: 'username', trim: true, description: 'username')
-        booleanParam(defaultValue: false, name: 'isOk', description: 'sure?')
-        choice(choices: ['A', 'B', 'C'], name: 'item', description: 'which one?')
-    }
-
-
-
+        parameters {
+            string(defaultValue: 'user1', name: 'username', trim: true, description: 'username')
+            booleanParam(defaultValue: false, name: 'isOk', description: 'sure?')
+            choice(choices: ['A', 'B', 'C'], name: 'item', description: 'which one?')
+        }
 
         stages {
             stage('test') {
@@ -28,7 +23,6 @@ def call() {
                     }
                 }
             }
-
         }
         post {
             always {
