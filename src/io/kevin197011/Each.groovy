@@ -9,6 +9,6 @@ class Each {
     }
 
     static String booleanToString(boolean b){
-        return boolean.toString(b)
+        return String.valueOf(b)
     }
 }

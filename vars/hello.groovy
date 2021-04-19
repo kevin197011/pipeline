@@ -15,10 +15,9 @@ def call() {
         agent any
 
         parameters {
-            string(defaultValue: 'user1', name: 'username', trim: true, description: 'username')
-            booleanParam(defaultValue: false, name: 'isOk', description: 'sure?')
-            booleanParam(name: 'Ok', defaultValue: true, description: '')
-            choice(choices: ['A', 'B', 'C'], name: 'item', description: 'which one?')
+            string(name: 'username', defaultValue: 'user1', trim: true, description: 'username')
+            booleanParam(name: 'Ok', defaultValue: true, description: 'ok?')
+            choice(name: 'item', choices: ['A', 'B', 'C'], description: 'which one?')
         }
 
         stages {
