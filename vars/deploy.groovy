@@ -18,7 +18,7 @@ def call(body) {
 
     def deploy = new Deploy('https://github.com/test', '1.2.3.4')
 
-    config.each { printf("%s => %s\n", it.key, it.value) }
+
 
     //pipeline
     pipeline {
@@ -36,6 +36,7 @@ def call(body) {
                 steps {
                     script {
                         println(deploy.toString())
+                        config.each { printf("%s => %s\n", it.key, it.value) }
                     }
                 }
             }
