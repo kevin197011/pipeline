@@ -1,8 +1,8 @@
 #!/usr/bin/env groovy
 
 def call() {
-    //load shareibrary
-    def helloworld = new io.kevin197011.helloworld()
+    //load sharelibrary
+    def hello = new io.kevin197011.hello()
 
     //pipeline
     pipeline {
@@ -19,7 +19,7 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        helloworld.printMsg(params.username)
+                        hello.printMsg(params.username)
                     }
                 }
             }
