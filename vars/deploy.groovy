@@ -2,12 +2,11 @@
 
 import io.kevin197011.Deploy
 
-
 def call() {
     //load sharelibrary
     // def hello = new hello()
     // def time = new time()
-    def deploy = new Deploy("https://github.com/test", "1.2.3.4")
+    def deploy = new Deploy('https://github.com/test', '1.2.3.4')
 
     //pipeline
     pipeline {
@@ -61,6 +60,7 @@ def call() {
                     println('success')
                 }
             }
+
             failure {
                 script {
                     println('failure')

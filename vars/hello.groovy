@@ -3,7 +3,6 @@
 import io.kevin197011.Each
 import io.kevin197011.Time
 
-
 def call() {
     //load sharelibrary
     // def hello = new hello()
@@ -36,7 +35,7 @@ def call() {
                     stage('A') {
                         steps {
                             script {
-                                printf('A %s', Time.timeFormat())
+                                printf('A %s\n', Time.timeFormat())
                                 sleep(10)
                             }
                         }
@@ -44,7 +43,7 @@ def call() {
                     stage('B') {
                         steps {
                             script {
-                                printf('B %s', Time.timeFormat())
+                                printf('B %s\n', Time.timeFormat())
                                 sleep(10)
                             }
                         }
@@ -65,6 +64,7 @@ def call() {
                     println('success')
                 }
             }
+
             failure {
                 script {
                     println('failure')
