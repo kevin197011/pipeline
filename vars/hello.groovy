@@ -37,7 +37,7 @@ def call() {
                         steps {
                             script {
                                 printf('A %s', Time.timeFormat())
-                                sleep(300)
+                                sleep(10)
                             }
                         }
                     }
@@ -45,7 +45,7 @@ def call() {
                         steps {
                             script {
                                 printf('B %s', Time.timeFormat())
-                                sleep(300)
+                                sleep(10)
                             }
                         }
                     }
