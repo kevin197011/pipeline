@@ -2,11 +2,23 @@
 
 import io.kevin197011.Deploy
 
-def call() {
-    //load sharelibrary
-    // def hello = new hello()
-    // def time = new time()
+def call(body) {
+
+    def config = [:]
+    body.resolveStrategy = Closure.DELEGATE_FIRST
+    body.delegate = config
+    body()
+
+
+    config = [
+            name: "devops",
+            age : "18",
+            id  : "123456"
+    ]
+
     def deploy = new Deploy('https://github.com/test', '1.2.3.4')
+
+    config.each { printf("%s => %s\n", it.key, it.value) }
 
     //pipeline
     pipeline {
