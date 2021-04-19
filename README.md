@@ -8,6 +8,16 @@ https://github.com/jenkinsci/pipeline-examples
 # jenkinsfile
 
 @Library('devops-lib@master') _
+
 hello()
+
+```
+
+```bash
+# jenkinsfile
+
+@Library('devops-lib@master') _
+
+deploy()
 
 ```
