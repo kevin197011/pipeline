@@ -24,7 +24,7 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        println(deploy)
+                        println(deploy.toString())
                     }
                 }
             }

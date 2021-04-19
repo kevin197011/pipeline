@@ -10,6 +10,7 @@ class Deploy {
         this.hostIp = hostIp
     }
 
+
     @Override
     public String toString() {
         return "Deploy{" +
