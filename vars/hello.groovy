@@ -17,6 +17,7 @@ def call() {
         parameters {
             string(defaultValue: 'user1', name: 'username', trim: true, description: 'username')
             booleanParam(defaultValue: false, name: 'isOk', description: 'sure?')
+            booleanParam(name: 'Ok', defaultValue: true, description: '')
             choice(choices: ['A', 'B', 'C'], name: 'item', description: 'which one?')
         }
 
@@ -25,7 +26,7 @@ def call() {
                 steps {
                     script {
                         println Each.printMsg(params.username)
-                        println Each.booleanToString(params.isOK)
+                        println Each.booleanToString(params.Ok)
                         println params.item
                     }
                 }
