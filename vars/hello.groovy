@@ -23,7 +23,7 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        helloworld.printMsg ${params.username}
+                        helloworld.printMsg(${params.username})
                     }
                 }
             }
