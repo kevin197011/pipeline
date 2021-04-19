@@ -4,7 +4,11 @@ import io.kevin197011.Deploy
 
 def call(body) {
 
-    def config = [:]
+    def config = [
+            name: "devops",
+            age : "18",
+            id  : "123456"
+    ]
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
     body()
@@ -17,7 +21,6 @@ def call(body) {
 //    ]
 
     def deploy = new Deploy('https://github.com/test', '1.2.3.4')
-
 
 
     //pipeline
@@ -36,7 +39,9 @@ def call(body) {
                 steps {
                     script {
                         println(deploy.toString())
-                        config.each { printf("%s => %s\n", it.key, it.value) }
+                        config.each {
+                            printf("%s => %s\n", it.key, it.value)
+                        }
                     }
                 }
             }
