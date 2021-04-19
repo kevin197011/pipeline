@@ -24,7 +24,7 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        println(deploy.toString())
+                        println(deploy)
                     }
                 }
             }
@@ -34,7 +34,6 @@ def call() {
                     stage('A') {
                         steps {
                             script {
-                                printf('A %s', Time.timeFormat())
                                 sleep(10)
                             }
                         }
@@ -42,7 +41,6 @@ def call() {
                     stage('B') {
                         steps {
                             script {
-                                printf('B %s', Time.timeFormat())
                                 sleep(10)
                             }
                         }
