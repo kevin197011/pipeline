@@ -1,3 +1,5 @@
+task :default => [:push]
+
 task :push do
 	sh "git add ."
 	sh "git commit -m 'Update.'"

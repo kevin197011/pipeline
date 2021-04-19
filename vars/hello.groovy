@@ -3,7 +3,7 @@
 def call(){
 
     //load shareibrary
-    def hello = new io.kevin197011.helloworld
+    def hello = new io.kevin197011.helloworld()
 
     //pipeline
     pipeline {
