@@ -1,8 +1,12 @@
 #!/usr/bin/env groovy
 
+import io.kevin197011.hello
+import io.kevin197011.time
+
 def call() {
     //load sharelibrary
-    def hello = new io.kevin197011.hello()
+    def hello = new hello()
+    def time = new time()
 
     //pipeline
     pipeline {
@@ -20,6 +24,27 @@ def call() {
                 steps {
                     script {
                         hello.printMsg(params.username)
+                    }
+                }
+            }
+
+            stage('parallel') {
+                parallel {
+                    stage('A') {
+                        steps {
+                            script {
+                                printf('A %s', time.timeFmt())
+                                sleep(3000)
+                            }
+                        }
+                    }
+                    stage('B') {
+                        steps {
+                            script {
+                                printf('B %s', time.timeFmt())
+                                sleep(3000)
+                            }
+                        }
                     }
                 }
             }
