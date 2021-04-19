@@ -5,8 +5,8 @@ import io.kevin197011.time
 
 def call() {
     //load sharelibrary
-    def hello = new hello()
-    def time = new time()
+    // def hello = new hello()
+    // def time = new time()
 
     //pipeline
     pipeline {
