@@ -10,11 +10,11 @@ def call(body) {
     body()
 
 
-    config = [
-            name: "devops",
-            age : "18",
-            id  : "123456"
-    ]
+//    config = [
+//            name: "devops",
+//            age : "18",
+//            id  : "123456"
+//    ]
 
     def deploy = new Deploy('https://github.com/test', '1.2.3.4')
 
