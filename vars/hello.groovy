@@ -25,7 +25,7 @@ def call() {
                 steps {
                     script {
                         println Each.printMsg(params.username)
-                        println params.isOK
+                        println boolean.toString(params.isOK)
                         println params.item
                     }
                 }
