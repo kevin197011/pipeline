@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 
 import io.kevin197011.cicd.Deploy
+import io.kevin197011.cicd.Message
 
 def call(Closure body) {
 
@@ -43,7 +44,10 @@ def call(Closure body) {
             stage('test') {
                 steps {
                     script {
-                        println(deploy.toString())
+                        println Message.getMsg(params.appName)
+                        println Message.booleanToString(params.flag)
+                        println params.version
+                        println deploy.toString()
                     }
                 }
             }
