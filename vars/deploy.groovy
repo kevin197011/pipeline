@@ -9,15 +9,16 @@ def call(Closure body) {
     body.delegate = config
     body()
 
+    def projectName = config.name
+    def releaseVersion = config.version
+    def projectGit = config.git
+    def projectHost = config.host
 
     config.each { key, val ->
         printf("%s => %s\n", key, val)
     }
 
-    def gitRepo = "https://github.com/test"
-    def hostIp = "xxx.xxx.xxx.xxx"
-
-    def deploy = new Deploy(gitRepo, hostIp)
+    def deploy = new Deploy(projectGit, projectHost)
 
 
     //pipeline
