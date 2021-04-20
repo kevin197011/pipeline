@@ -2,16 +2,17 @@
 
 import io.kevin197011.Deploy
 
-def call(body) {
+def call(Closure body) {
 
-    def config = [
-            'name': "devops",
-            'age' : "18",
-            'id'  : "123456"
-    ]
+    def config = [:]
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
     body()
+
+
+    config.each { key, val ->
+        printf("%s => %s\n", key, val)
+    }
 
     def gitRepo = "https://github.com/test"
     def hostIp = "xxx.xxx.xxx.xxx"
@@ -35,9 +36,6 @@ def call(body) {
                 steps {
                     script {
                         println(deploy.toString())
-                        config.each { key, value ->
-                            printf("%s => %s\n", key, value)
-                        }
                     }
                 }
             }
