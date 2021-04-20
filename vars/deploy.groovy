@@ -15,7 +15,7 @@ def call(Closure body) {
     def projectHost = config.host
 
     config.each { key, val ->
-        printf("%s => %s\n", key, val)
+        printf("%s => %s\n", key.toString(), val.toString())
     }
 
     def deploy = new Deploy(projectGit, projectHost)
