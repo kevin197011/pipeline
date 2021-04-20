@@ -9,14 +9,12 @@ def call(Closure body) {
     body.delegate = config
     body()
 
-    def projectName = config.name
-    def releaseVersion = config.version
     def projectGit = config.git
     def projectHost = config.host
 
-    config.each { key, val ->
-        printf("%s => %s\n", key.toString(), val.toString())
-    }
+//    config.each { key, val ->
+//        printf("%s => %s\n", key.toString(), val.toString())
+//    }
 
     def deploy = new Deploy(projectGit, projectHost)
 
@@ -27,12 +25,22 @@ def call(Closure body) {
         agent any
 
         parameters {
-            string(name: 'username', defaultValue: 'user1', trim: true, description: 'username')
-            booleanParam(name: 'Ok', defaultValue: true, description: 'ok?')
-            choice(name: 'item', choices: ['A', 'B', 'C'], description: 'which one?')
+            string(name: 'appName', defaultValue: 'app', trim: true, description: 'appName')
+            booleanParam(name: 'flag', defaultValue: false, description: 'sure?')
+            choice(name: 'version', choices: ['A', 'B', 'C'], description: 'which version?')
         }
 
         stages {
+            stage("run?") {
+                steps {
+                    script {
+                        if (!params.flag) {
+                            println("not sure, break!")
+                            return
+                        }
+                    }
+                }
+            }
             stage('test') {
                 steps {
                     script {
