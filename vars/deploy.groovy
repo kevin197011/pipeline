@@ -13,14 +13,10 @@ def call(body) {
     body.delegate = config
     body()
 
+    def gitRepo = "https://github.com/test"
+    def hostIp = "https://github.com/test"
 
-//    config = [
-//            name: "devops",
-//            age : "18",
-//            id  : "123456"
-//    ]
-
-    def deploy = new Deploy('https://github.com/test', '1.2.3.4')
+    def deploy = new Deploy(gitRepo, hostIp)
 
 
     //pipeline
