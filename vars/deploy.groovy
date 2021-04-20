@@ -35,8 +35,8 @@ def call(body) {
                 steps {
                     script {
                         println(deploy.toString())
-                        config.each { key, val ->
-                            printf("%s => %s\n", $key, $value)
+                        config.each { key, value ->
+                            printf("%s => %s\n", key, value)
                         }
                     }
                 }
