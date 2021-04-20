@@ -1,10 +1,10 @@
-package io.kevin197011
+package io.kevin197011.cicd
 
 /**
- * each class
+ * Message class
  */
-class Each {
-    static String printMsg(String name) {
+class Message {
+    static String getMsg(String name) {
         return sprintf("hello %s", name)
     }
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
-import io.kevin197011.Each
-import io.kevin197011.Time
+import io.kevin197011.cicd.Message
+import io.kevin197011.cicd.TimeUtils
 
 def call() {
     //load sharelibrary
@@ -23,8 +23,8 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        println Each.printMsg(params.username)
-                        println Each.booleanToString(params.Ok)
+                        println Message.getMsg(params.username)
+                        println Message.booleanToString(params.Ok)
                         println params.item
                     }
                 }
@@ -35,7 +35,7 @@ def call() {
                     stage('A') {
                         steps {
                             script {
-                                printf('A %s\n', Time.timeFormat())
+                                printf('A %s\n', TimeUtils.timeFormat())
                                 sleep(10)
                             }
                         }
@@ -43,7 +43,7 @@ def call() {
                     stage('B') {
                         steps {
                             script {
-                                printf('B %s\n', Time.timeFormat())
+                                printf('B %s\n', TimeUtils.timeFormat())
                                 sleep(10)
                             }
                         }

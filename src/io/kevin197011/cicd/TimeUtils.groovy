@@ -1,11 +1,11 @@
-package io.kevin197011
+package io.kevin197011.cicd
 
 import java.text.SimpleDateFormat
 
 /**
- * Time class
+ * TimeUtils class
  */
-class Time {
+class TimeUtils {
     static String timeFormat() {
         return new SimpleDateFormat('MM/dd/yyyy HH:mm:ss').format(new Date()).toString()
     }

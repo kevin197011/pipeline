@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-import io.kevin197011.Deploy
+import io.kevin197011.cicd.Deploy
 
 def call(Closure body) {
 
@@ -9,14 +9,14 @@ def call(Closure body) {
     body.delegate = config
     body()
 
-    def projectGit = config.git
-    def projectHost = config.host
+//    def projectGit = config.git
+//    def projectHost = config.host
 
 //    config.each { key, val ->
 //        printf("%s => %s\n", key.toString(), val.toString())
 //    }
 
-    def deploy = new Deploy(projectGit, projectHost)
+    def deploy = new Deploy(config.git as String, config.host as String)
 
 
     //pipeline
