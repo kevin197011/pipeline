@@ -10,13 +10,18 @@ def call() {
     def jobDSL = '''
 @Library('devops-lib@master') _
 
-hello()
+deploy {
+    name = "app01"
+    version = "master"
+    git = "https://github.com/kevin197011/test"
+    host = "localhost"
+}
 '''
     def job = new JenkinsJob(jobName, jobDSL)
 
     // pipeline
     pipeline {
-        
+
         agent any
 
         stages {
