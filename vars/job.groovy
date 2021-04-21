@@ -1,31 +1,63 @@
 #!/usr/bin/env groovy
 
-import jenkins.model.Jenkins
-import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition
-import org.jenkinsci.plugins.workflow.job.WorkflowJob
+import io.kevin197011.cicd.JenkinsJob
 
 def call() {
+
+    // set new add job name
     def jobName = "test01"
+    // config pipeline dsl syntax
     def jobDSL = '''
 @Library('devops-lib@master') _
 
 hello()
 '''
-    def instance = Jenkins.getInstanceOrNull()
-    if (instance == null) {
-        error "Instance is Null!"
-    }
-    def flowDefinition = new CpsFlowDefinition(jobDSL, true)
-    def job = new WorkflowJob(instance, jobName)
-    job.definition = flowDefinition
-    job.setConcurrentBuild(false)
+    def job = new JenkinsJob(jobName, jobDSL)
 
-//        job.addProperty(new RateLimitBranchProperty.JobPropertyImpl
-//                (new RateLimitBranchProperty.Throttle(60, "hours")))
-//        def spec = "H 0 1 * *"
-//        TimerTrigger newCron = new TimerTrigger(spec)
-//        newCron.start(job, true)
-//        job.addTrigger(newCron)
-    job.save()
-    Jenkins.getInstanceOrNull().reload()
+    // pipeline
+    pipeline {
+        
+        agent any
+
+        stages {
+            stage('add job') {
+                steps {
+                    script {
+                        if (!job.addJob()) {
+                            println "${jobName} add failure!"
+                        }
+                        println "${jobName} add success!"
+                    }
+                }
+            }
+
+        }
+
+        post {
+            always {
+                script {
+                    println('always')
+                }
+            }
+
+            success {
+                script {
+                    println('success')
+                }
+            }
+
+            failure {
+                script {
+                    println('failure')
+                }
+            }
+
+            aborted {
+                script {
+                    println('aborted')
+                }
+            }
+        }
+    }
 }
+
