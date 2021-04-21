@@ -17,18 +17,17 @@ class JenkinsJob {
         this.jobDSL = jobDSL
     }
 
-    boolean addJob() {
+    boolean addOrUpdateJob() {
 
-        def instance = Jenkins.getInstanceOrNull()
+        Jenkins instance = Jenkins.getInstanceOrNull()
 
         if (instance == null) {
             println "Instance is Null!"
             return false
-
         }
 
-        def flowDefinition = new CpsFlowDefinition(jobDSL, true)
-        def job = new WorkflowJob(instance, jobName)
+        CpsFlowDefinition flowDefinition = new CpsFlowDefinition(jobDSL, true)
+        WorkflowJob job = new WorkflowJob(instance, jobName)
         job.definition = flowDefinition
         job.setConcurrentBuild(false)
 
@@ -42,6 +41,16 @@ class JenkinsJob {
         job.save()
         Jenkins.getInstanceOrNull().reload()
 
+        return true
+    }
+
+    boolean deleteJob(){
+        Jenkins instance = Jenkins.getInstanceOrNull()
+        WorkflowJob job = instance.getItem(jobName) as WorkflowJob
+        if (job == null){
+            return false
+        }
+        job.delete()
         return true
     }
 

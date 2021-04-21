@@ -28,10 +28,20 @@ deploy {
             stage('add job') {
                 steps {
                     script {
-                        if (!job.addJob()) {
+                        if (!job.addOrUpdateJob()) {
                             println "${jobName} add failure!"
                         }
                         println "${jobName} add success!"
+                    }
+                }
+            }
+            stage('delete job') {
+                steps {
+                    script {
+                        if (!job.deleteJob()) {
+                            println "${jobName} delete failure!"
+                        }
+                        println "${jobName} delete success!"
                     }
                 }
             }
