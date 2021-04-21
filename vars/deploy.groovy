@@ -36,7 +36,7 @@ def call(Closure body) {
                 steps {
                     script {
                         if (!params.flag) {
-                            error "not sure, break!"
+                            error "Not sure, break!"
                         }
                     }
                 }

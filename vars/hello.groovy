@@ -4,10 +4,7 @@ import io.kevin197011.cicd.Message
 import io.kevin197011.cicd.TimeUtils
 
 def call() {
-    //load sharelibrary
-    // def hello = new hello()
-    // def time = new time()
-
+ 
     //pipeline
     pipeline {
         // agent { node { label "build"}}

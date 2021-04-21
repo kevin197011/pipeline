@@ -18,7 +18,7 @@ hello()
 
 @Library('devops-lib@master') _
 
-deploy{
+deploy {
     name = "app01"
     version = "master"
     git = "https://github.com/kevin197011/test"
