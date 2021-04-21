@@ -22,7 +22,7 @@ class JenkinsJob {
         Jenkins instance = Jenkins.getInstanceOrNull()
 
         if (instance == null) {
-            println "Instance is Null!"
+//            println "Instance is Null!"
             return false
         }
 
@@ -44,10 +44,11 @@ class JenkinsJob {
         return true
     }
 
-    boolean deleteJob(){
+    boolean deleteJob() {
         Jenkins instance = Jenkins.getInstanceOrNull()
         WorkflowJob job = instance.getItem(jobName) as WorkflowJob
-        if (job == null){
+        if (job == null) {
+//            println "get job is null!"
             return false
         }
         job.delete()
