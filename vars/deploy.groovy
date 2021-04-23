@@ -32,7 +32,7 @@ def call(Closure body) {
         }
 
         stages {
-            stage("run?") {
+            stage("do?") {
                 steps {
                     script {
                         if (!params.flag) {

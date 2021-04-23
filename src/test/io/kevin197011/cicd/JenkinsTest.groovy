@@ -3,13 +3,14 @@ package test.io.kevin197011.cicd
 import io.kevin197011.cicd.Deploy
 import io.kevin197011.cicd.LoggerUtils
 import org.junit.Test
+
 import static groovy.test.GroovyAssert.shouldFail
 
-class TestInstance {
+class JenkinsTest {
 
     @Test
     void test01() {
-        def numbers = [1,2,3,4]
+        def numbers = [1, 2, 3, 4]
         shouldFail {
             numbers.get(4)
         }

@@ -1,11 +1,10 @@
 package test.io.kevin197011.cicd
 
-import hudson.triggers.TimerTrigger
-import jenkins.branch.RateLimitBranchProperty
-import org.junit.Test
+
 import jenkins.model.Jenkins
 import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition
 import org.jenkinsci.plugins.workflow.job.WorkflowJob
+import org.junit.Test
 
 class PipelineTest /*extends BasePipelineTest*/ {
 

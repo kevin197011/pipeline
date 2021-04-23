@@ -4,7 +4,7 @@ import io.kevin197011.cicd.Message
 import io.kevin197011.cicd.TimeUtils
 
 def call() {
- 
+
     //pipeline
     pipeline {
         // agent { node { label "build"}}

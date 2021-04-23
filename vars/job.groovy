@@ -24,7 +24,22 @@ deploy {
 
         agent any
 
+        parameters {
+            booleanParam(name: 'do', defaultValue: false, description: 'do?')
+        }
+
         stages {
+
+            stage("do?") {
+                steps {
+                    script {
+                        if (!params.do) {
+                            error "Not sure, break!"
+                        }
+                    }
+                }
+            }
+
             stage('add job') {
                 steps {
                     script {

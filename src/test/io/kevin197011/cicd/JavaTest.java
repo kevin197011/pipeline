@@ -3,6 +3,9 @@ package test.io.kevin197011.cicd;
 import org.junit.Test;
 
 
+/**
+ * @author norton
+ */
 public class JavaTest {
 
     @Test
@@ -10,3 +13,4 @@ public class JavaTest {
         System.out.println("testo1");
     }
 }
+

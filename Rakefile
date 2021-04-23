@@ -1,4 +1,3 @@
-
 task :default => [:push]
 
 task :push do

@@ -9,7 +9,7 @@ class Message {
         return sprintf("hello %s", name)
     }
 
-    static String booleanToString(boolean b){
+    static String booleanToString(boolean b) {
         return String.valueOf(b)
     }
 }
