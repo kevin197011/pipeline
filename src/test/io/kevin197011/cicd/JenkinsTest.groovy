@@ -2,6 +2,7 @@ package test.io.kevin197011.cicd
 
 import io.kevin197011.cicd.Deploy
 import io.kevin197011.cicd.LoggerUtils
+import jenkins.mvn.GlobalMavenConfig
 import org.junit.Test
 
 import static groovy.test.GroovyAssert.shouldFail
@@ -25,5 +26,10 @@ class JenkinsTest {
         LoggerUtils.debug "hello world!"
         LoggerUtils.error "hello world!"
         assert "Deploy{repo='https://github.com/kevin197011/test', host='localhost'}" == deploy.toString()
+    }
+
+    @Test
+    void test03(){
+        hudson.model.JDK.all()
     }
 }
