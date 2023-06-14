@@ -1,7 +1,6 @@
 #!/usr/bin/env groovy
 
 def call() {
-    def data = readYaml text: resource('deploy/app.yml')
 
     //pipeline
     pipeline {
@@ -12,6 +11,7 @@ def call() {
             stage('test') {
                 steps {
                     script {
+                        def data = readYaml text: resource('deploy/app.yml')
                         println data
                     }
                 }
