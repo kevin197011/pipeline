@@ -11,7 +11,7 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        def data = readYaml text: resource('deploy/app.yml')
+                        def data = readYaml text: libraryResource('deploy/app.yml')
                         println data
                     }
                 }
