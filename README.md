@@ -7,7 +7,7 @@ https://github.com/jenkinsci/pipeline-examples
 ```bash
 # jenkinsfile
 
-@Library('devops-lib@master') _
+@Library('devops-lib@main') _
 
 hello()
 
@@ -16,11 +16,11 @@ hello()
 ```bash
 # jenkinsfile
 
-@Library('devops-lib@master') _
+@Library('devops-lib@main') _
 
 deploy {
     name = "app01"
-    version = "master"
+    version = "main"
     git = "https://github.com/kevin197011/test"
     host = "localhost"
 }
