@@ -1,9 +1,9 @@
-task :default => [:push]
+# frozen_string_literal: true
+
+task default: [:push]
 
 task :push do
-  sh "git add ."
+  sh 'git add .'
   sh "git commit -m 'Update.'"
-  sh "git push origin master"
+  sh 'git push origin main'
 end
-
-
