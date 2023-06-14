@@ -2,6 +2,8 @@
 
 def call() {
 
+    def data = readYaml text: libraryResource('deploy/app.yml')
+
     //pipeline
     pipeline {
         // agent { node { label "Build"}}
@@ -11,7 +13,6 @@ def call() {
             stage('test') {
                 steps {
                     script {
-                        def data = readYaml text: libraryResource('deploy/app.yml')
                         println data
                     }
                 }
