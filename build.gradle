@@ -1,0 +1,15 @@
+plugins {
+    id "com.mkobit.jenkins.pipelines.shared-library" version "0.10.1"
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.jenkins-ci.org/releases/' }
+}
+
+dependencies {
+    implementation group: 'org.jenkins-ci.main', name: 'jenkins-core', version: '2.286'
+    implementation 'org.codehaus.groovy:groovy-all:3.0.12'
+    implementation 'junit:junit:4.12'
+    testImplementation group: 'com.lesfurets', name: 'jenkins-pipeline-unit', version: '1.3'
+}
