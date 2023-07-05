@@ -18,6 +18,7 @@ def call() {
                 steps {
                     script {
                         println data
+                        println $SERVER_KEY
                         println $SERVER_KEY_USR
                     }
                 }
