@@ -4,6 +4,7 @@ import hudson.*
 import hudson.model.*
 
 // 查看 Jenkins credentials 内置加密变量
+// 一些内置加密变量调用方式 https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#string-interpolation:~:text=steps%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20/*%20CORRECT%20*/-,sh,-(%27curl
 
 def jenkinsCredentials = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
         com.cloudbees.plugins.credentials.Credentials.class,
