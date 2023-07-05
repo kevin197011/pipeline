@@ -1,7 +1,6 @@
 #!/usr/bin/env groovy
 
 def call() {
-    
     def data = readYaml text: libraryResource('deploy/app.yml')
 
     //pipeline
@@ -18,13 +17,12 @@ def call() {
                 steps {
                     script {
                         println data
-                        // println $SERVER_KEY
-                        // println $SERVER_KEY_USR
-                        sh """
-                            echo ${SERVER_KEY}
-                            echo ${SERVER_KEY_USR}
-                        """
+                    // println $SERVER_KEY
+                    // println $SERVER_KEY_USR
                     }
+
+                    sh 'echo $SERVER_KEY '
+                    sh 'echo $SERVER_KEY_USR'
                 }
             }
         }
