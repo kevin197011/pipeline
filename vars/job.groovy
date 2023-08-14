@@ -3,9 +3,8 @@
 import io.kevin197011.cicd.JenkinsJob
 
 def call() {
-
     // set new add job name
-    def jobName = "test01"
+    def jobName = 'test01'
     // config pipeline dsl syntax
     def jobDSL = '''
 @Library('devops-lib@master') _
@@ -21,7 +20,6 @@ deploy {
 
     // pipeline
     pipeline {
-
         agent any
 
         parameters {
@@ -29,12 +27,11 @@ deploy {
         }
 
         stages {
-
-            stage("do?") {
+            stage('do?') {
                 steps {
                     script {
                         if (!params.do) {
-                            error "Not sure, break!"
+                            error 'Not sure, break!'
                         }
                     }
                 }
@@ -60,7 +57,6 @@ deploy {
                     }
                 }
             }
-
         }
 
         post {
