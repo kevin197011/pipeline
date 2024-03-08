@@ -41,7 +41,7 @@ deploy {
                 steps {
                     script {
                         if (!job.addOrUpdateJob()) {
-                            println "${jobName} add failure!"
+                            error "${jobName} add failure!"
                         }
                         println "${jobName} add success!"
                     }
@@ -51,7 +51,7 @@ deploy {
                 steps {
                     script {
                         if (!job.deleteJob()) {
-                            println "${jobName} delete failure!"
+                            error "${jobName} delete failure!"
                         }
                         println "${jobName} delete success!"
                     }
