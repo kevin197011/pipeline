@@ -2,6 +2,7 @@
 // Jenkinsfile 示例：通过 shared library 的 deploy.groovy 实现远程部署
 // 需在 Jenkins 系统配置中注册 shared library，并预装 sshpass/ssh
 
+@Library('devops-lib') _
 deploy {
     git = 'https://github.com/your/repo.git'      // 代码仓库地址
     host = '1.2.3.4'                              // 远程主机
