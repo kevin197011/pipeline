@@ -3,10 +3,53 @@
 // 用法：在 Jenkinsfile 里直接调用 deployFlowExample()
 
 def call(Map config = [:]) {
-    // 导入 DeployFlow
-    def flow = new io.kevin197011.cicd.DeployFlow()
-    // 调用 apply(config) 返回 pipeline 闭包并执行
-    flow.apply(config).call()
+    def stagesConf = io.kevin197011.cicd.DeployFlow.getStages(config)
+    pipeline {
+        agent any
+        parameters {
+            string(name: 'appName', defaultValue: 'app', trim: true, description: 'appName')
+            booleanParam(name: 'flag', defaultValue: false, description: 'sure?')
+            choice(name: 'version', choices: ['A', 'B', 'C'], description: 'which version?')
+        }
+        stages {
+            // 动态生成 stage
+            stagesConf.each { stageConf ->
+                stage(stageConf.name) {
+                    steps {
+                        script {
+                            if (stageConf.steps instanceof Closure) {
+                                stageConf.steps(this)
+                            } else {
+                                echo "Stage: ${stageConf.name}"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        post {
+            always {
+                script {
+                    io.kevin197011.cicd.DeployFlow.logInfo('always', this)
+                }
+            }
+            success {
+                script {
+                    io.kevin197011.cicd.DeployFlow.logInfo('success', this)
+                }
+            }
+            failure {
+                script {
+                    io.kevin197011.cicd.DeployFlow.logInfo('failure', this)
+                }
+            }
+            aborted {
+                script {
+                    io.kevin197011.cicd.DeployFlow.logInfo('aborted', this)
+                }
+            }
+        }
+    }
 }
 
 // ---

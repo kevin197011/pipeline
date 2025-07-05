@@ -6,96 +6,40 @@ package io.kevin197011.cicd
 // @CompileStatic
 class DeployFlow {
 
-    Closure apply(Map config) {
-        return {
-            //pipeline
-            pipeline {
-                // agent { node { label "Build"}}
-                agent any
-
-                parameters {
-                    string(name: 'appName', defaultValue: 'app', trim: true, description: 'appName')
-                    booleanParam(name: 'flag', defaultValue: false, description: 'sure?')
-                    choice(name: 'version', choices: ['A', 'B', 'C'], description: 'which version?')
-                }
-
-                stages {
-                    stage('do?') {
-                        steps {
-                            script {
-                                if (!params.flag) {
-                                    error 'Not sure, break!'
-                                }
-                            }
-                        }
-                    }
-
-                    // stage test
-                    stage('test') {
-                        steps {
-                            script {
-                                if (config) {
-                                    config.each {
-                                        LoggerUtils.info("${it.key } => ${it.value}", this)
-                                    }
-                                }
-                                // LoggerUtils.info(Message.getMsg(params.appName), this)
-                                // LoggerUtils.info(Message.booleanToString(params.flag), this)
-                                // LoggerUtils.info(params.version, this)
-                                // LoggerUtils.info(deploy.toString(), this)
-                            }
-                        }
-                    }
-
-                    // stage parallel
-                    stage('parallel') {
-                        parallel {
-                            stage('A') {
-                                steps {
-                                    script {
-                                        sleep(10)
-                                    }
-                                }
-                            }
-                            stage('B') {
-                                steps {
-                                    script {
-                                        sleep(10)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                post {
-                    always {
-                        script {
-                            LoggerUtils.info('always', this)
-                        }
-                    }
-
-                    success {
-                        script {
-                            LoggerUtils.info('success', this)
-                        }
-                    }
-
-                    failure {
-                        script {
-                            LoggerUtils.info('failure', this)
-                        }
-                    }
-
-                    aborted {
-                        script {
-                            LoggerUtils.info('aborted', this)
-                        }
-                    }
-                }
+    /**
+     * 输出 config 的所有 key/value 日志
+     */
+    static void logConfig(Map config, steps) {
+        if (config) {
+            config.each { k, v ->
+                LoggerUtils.info("${k} => ${v}", steps)
             }
         }
     }
 
+    /**
+     * 输出 info 日志
+     */
+    static void logInfo(String message, steps) {
+        LoggerUtils.info(message, steps)
+    }
+
+    /**
+     * 根据 config 返回 stage 配置
+     * @param config 传入参数
+     * @return List<Map>，每个 map 包含 name、steps 等
+     */
+    static List<Map> getStages(Map config) {
+        if (config?.stages) {
+            return config.stages
+        }
+        return [
+            [name: 'Build',  steps: { steps -> steps.echo 'Building...' }],
+            [name: 'Test',   steps: { steps -> steps.echo 'Testing...' }],
+            [name: 'Deploy', steps: { steps -> steps.echo 'Deploying...' }]
+        ]
+    }
+
+    // 可扩展更多工具方法
 }
 
