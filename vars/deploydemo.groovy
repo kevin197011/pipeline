@@ -1,7 +1,10 @@
 #!/usr/bin/env groovy
 
 import io.kevin197011.cicd.Deploy
-import io.kevin197011.cicd.LoggerUtils
+
+// import io.kevin197011.cicd.DeployFlow
+
+//import io.kevin197011.cicd.Message
 
 def call(Closure body) {
     def config = [:]
@@ -9,13 +12,13 @@ def call(Closure body) {
     body.delegate = config
     body()
 
-    def deploy = new Deploy(
-        config.git as String,
-        config.host as String,
-        config.user as String,
-        config.password,
-        config.privateKey
-    )
+    def projectGit = config.git
+    def projectHost = config.host
+
+    def deploy = new Deploy(config.git as String, config.host as String)
+
+    // def df = new DeployFlow().apply(config)
+    // df.call()
 
     //pipeline
     pipeline {
@@ -39,42 +42,19 @@ def call(Closure body) {
                 }
             }
 
-            stage('git clone') {
-                steps {
-                    script {
-                        deploy.validate()
-                        def ok = deploy.gitClone(config.git as String, this)
-                        LoggerUtils.info("gitClone result: ${ok}", this)
-                    }
-                }
-            }
-
-            stage('git pull') {
-                steps {
-                    script {
-                        def ok = deploy.gitPull(config.projectDir ?: '', this)
-                        LoggerUtils.info("gitPull result: ${ok}", this)
-                    }
-                }
-            }
-
-            stage('deploy') {
-                steps {
-                    script {
-                        def ok = deploy.doDeploy(this)
-                        LoggerUtils.info("doDeploy result: ${ok}", this)
-                    }
-                }
-            }
-
             // stage test
             stage('test') {
                 steps {
                     script {
                         config.each {
-                            LoggerUtils.info("${it.key } => ${it.value}", this)
+                            println "${it.key } => ${it.value}"
                         }
-                        LoggerUtils.info(deploy.toString(), this)
+                    //                        println Message.getMsg(params.appName)
+                    //                        println Message.booleanToString(params.flag)
+                    //                        println params.version
+                    //                        println deploy.toString()
+
+                        println deploy.toString()
                     }
                 }
             }
@@ -103,25 +83,25 @@ def call(Closure body) {
         post {
             always {
                 script {
-                    LoggerUtils.info('always', this)
+                    println('always')
                 }
             }
 
             success {
                 script {
-                    LoggerUtils.info('success', this)
+                    println('success')
                 }
             }
 
             failure {
                 script {
-                    LoggerUtils.info('failure', this)
+                    println('failure')
                 }
             }
 
             aborted {
                 script {
-                    LoggerUtils.info('aborted', this)
+                    println('aborted')
                 }
             }
         }
