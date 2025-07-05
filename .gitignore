@@ -28,3 +28,7 @@ build
 gradle
 .gradle
 bin
+
+.cursor
+
+jenkins_home

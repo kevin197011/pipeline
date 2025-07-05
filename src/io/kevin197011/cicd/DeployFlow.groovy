@@ -34,13 +34,15 @@ class DeployFlow {
                     stage('test') {
                         steps {
                             script {
-                                config.each {
-                                    println "${it.key } => ${it.value}"
+                                if (config) {
+                                    config.each {
+                                        LoggerUtils.info("${it.key } => ${it.value}", this)
+                                    }
                                 }
-                            //                        println Message.getMsg(params.appName)
-                            //                        println Message.booleanToString(params.flag)
-                            //                        println params.version
-                            //                        println deploy.toString()
+                                // LoggerUtils.info(Message.getMsg(params.appName), this)
+                                // LoggerUtils.info(Message.booleanToString(params.flag), this)
+                                // LoggerUtils.info(params.version, this)
+                                // LoggerUtils.info(deploy.toString(), this)
                             }
                         }
                     }
@@ -69,25 +71,25 @@ class DeployFlow {
                 post {
                     always {
                         script {
-                            println('always')
+                            LoggerUtils.info('always', this)
                         }
                     }
 
                     success {
                         script {
-                            println('success')
+                            LoggerUtils.info('success', this)
                         }
                     }
 
                     failure {
                         script {
-                            println('failure')
+                            LoggerUtils.info('failure', this)
                         }
                     }
 
                     aborted {
                         script {
-                            println('aborted')
+                            LoggerUtils.info('aborted', this)
                         }
                     }
                 }

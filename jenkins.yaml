@@ -1,0 +1,28 @@
+# jenkins.yaml
+# Jenkins Configuration as Code (JCasC) 配置：自动注册 shared library 并设置初始 admin 用户密码
+# 放在项目根目录，配合 docker-compose.yml 挂载和环境变量使用
+
+unclassified:
+  globalLibraries:
+    libraries:
+      - name: "devops-lib"
+        defaultVersion: "main"
+        allowVersionOverride: true
+        implicit: false
+        retriever:
+          modernSCM:
+            scm:
+              filesystem:
+                path: "/var/jenkins_home/workspace/pipeline"
+
+securityRealm:
+  local:
+    allowsSignup: false
+    users:
+      - id: "admin"
+        password: "123456"
+        name: "admin"
+        email: "admin@example.com"
+authorizationStrategy:
+  loggedInUsersCanDoAnything:
+    allowAnonymousRead: false

@@ -1,11 +1,21 @@
 # frozen_string_literal: true
 
+# Copyright (c) 2025 kk
+#
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+
 require 'time'
 
-task default: [:push]
+task default: %w[push]
 
 task :push do
-  sh 'git add .'
-  sh "git commit -m 'Update #{Time.now}.'"
-  sh 'git push origin main'
+  system <<-SHELL
+    rubocop -A
+    git update-index --chmod=+x push
+    git add .
+    git commit -m "Update #{Time.now}"
+    git pull
+    git push origin main
+  SHELL
 end
