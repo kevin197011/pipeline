@@ -1,21 +1,24 @@
 #!/usr/bin/env groovy
 
 import io.kevin197011.cicd.JenkinsJob
+import io.kevin197011.cicd.LoggerUtils
 
-def call() {
-    // set new add job name
-    def jobName = 'test01'
-    // config pipeline dsl syntax
-    def jobDSL = '''
-@Library('devops-lib@master') _
+def call(Map config = [:]) {
+    // 获取外部传参或默认值
+    def branch = config.branch ?: 'main'
+    def version = config.version ?: 'main'
+    def jobName = config.jobName ?: 'test01'
+    def defaultJobDSL = """
+@Library('devops-lib@${branch}') _
 
 deploy {
-    name = "app01"
-    version = "master"
-    git = "https://github.com/kevin197011/test"
-    host = "localhost"
+    name = \"${jobName}\"
+    version = \"${version}\"
+    git = \"https://github.com/kevin197011/test\"
+    host = \"localhost\"
 }
-'''
+"""
+    def jobDSL = config.dsl ?: defaultJobDSL
     def job = new JenkinsJob(jobName, jobDSL)
 
     // pipeline
@@ -24,6 +27,10 @@ deploy {
 
         parameters {
             booleanParam(name: 'do', defaultValue: false, description: 'do?')
+            string(name: 'JOB_NAME', defaultValue: jobName, description: 'Job 名称')
+            string(name: 'BRANCH', defaultValue: branch, description: 'devops-lib 分支')
+            string(name: 'VERSION', defaultValue: version, description: 'deploy.version')
+            text(name: 'JOB_DSL', defaultValue: jobDSL, description: '自定义 Job DSL（可选）')
         }
 
         stages {
@@ -40,20 +47,34 @@ deploy {
             stage('add job') {
                 steps {
                     script {
+                        // 优先用参数 JOB_DSL，否则用默认模板
+                        def dynamicJobDSL = params.JOB_DSL?.trim() ? params.JOB_DSL : """
+@Library('devops-lib@${params.BRANCH}') _
+
+deploy {
+    name = \"${params.JOB_NAME}\"
+    version = \"${params.VERSION}\"
+    git = \"https://github.com/kevin197011/test\"
+    host = \"localhost\"
+}
+"""
+                        job.name = params.JOB_NAME
+                        job.dsl = dynamicJobDSL
                         if (!job.addOrUpdateJob()) {
-                            error "${jobName} add failure!"
+                            error "${params.JOB_NAME} add failure!"
                         }
-                        println "${jobName} add success!"
+                        LoggerUtils.info("${params.JOB_NAME} add success!", this)
                     }
                 }
             }
             stage('delete job') {
                 steps {
                     script {
+                        job.name = params.JOB_NAME
                         if (!job.deleteJob()) {
-                            error "${jobName} delete failure!"
+                            error "${params.JOB_NAME} delete failure!"
                         }
-                        println "${jobName} delete success!"
+                        LoggerUtils.info("${params.JOB_NAME} delete success!", this)
                     }
                 }
             }
@@ -62,25 +83,25 @@ deploy {
         post {
             always {
                 script {
-                    println('always')
+                    LoggerUtils.info('always', this)
                 }
             }
 
             success {
                 script {
-                    println('success')
+                    LoggerUtils.info('success', this)
                 }
             }
 
             failure {
                 script {
-                    println('failure')
+                    LoggerUtils.info('failure', this)
                 }
             }
 
             aborted {
                 script {
-                    println('aborted')
+                    LoggerUtils.info('aborted', this)
                 }
             }
         }

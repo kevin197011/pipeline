@@ -54,5 +54,28 @@ def call(Map config = [:]) {
                 }
             }
         }
+        
+        post {
+            always {
+                script {
+                    LoggerUtils.info('always', this)
+                }
+            }
+            success {
+                script {
+                    LoggerUtils.info('success', this)
+                }
+            }
+            failure {
+                script {
+                    LoggerUtils.info('failure', this)
+                }
+            }
+            aborted {
+                script {
+                    LoggerUtils.info('aborted', this)
+                }
+            }
+        }
     }
 }
