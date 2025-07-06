@@ -22,7 +22,7 @@ class Deploy extends AbstractDeploy {
 
     @Override
     boolean gitClone(steps) {
-        String cmd = "sudo mkdir -p ${workDir} && cd ${workDir} && sudo git clone ${repo}"
+        String cmd = "sudo mkdir -p ${workDir} && cd ${workDir} && sudo rm -rf ${repo} && sudo git clone ${repo}"
         return execRemote(cmd, steps)
     }
 
