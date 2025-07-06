@@ -2,6 +2,7 @@
 // Jenkinsfile 示例：调用 shared library 的 k8sDeployDemo，支持 Harbor 镜像 tag 交互选择
 // 需在 Jenkins 系统配置中注册 shared library，并配置 Harbor 用户名密码凭据
 
+@Library('devops-lib') _
 k8sDeployDemo(
     repo: 'harbor.example.com/project/app',         // Harbor 镜像仓库地址
     credId: 'harbor-credentials-id'                 // Jenkins中配置的Harbor用户名密码凭据ID
