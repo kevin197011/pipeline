@@ -1,4 +1,5 @@
 import io.kevin197011.cicd.HarborUtils
+import io.kevin197011.cicd.LoggerUtils
 
 def call(Map config = [:]) {
     pipeline {
@@ -30,7 +31,7 @@ def call(Map config = [:]) {
                                 [$class: 'ChoiceParameterDefinition', choices: tags.join('\n'), description: 'Harbor 镜像 tag', name: 'IMAGE_TAG']
                             ]
                         )
-                        echo "用户选择的镜像 tag: ${env.SELECTED_TAG}"
+                        LoggerUtils.info("用户选择的镜像 tag: ${env.SELECTED_TAG}", this)
                     }
                 }
             }
@@ -39,7 +40,7 @@ def call(Map config = [:]) {
                 steps {
                     script {
                         def image = "${params.HARBOR_REPO}:${env.SELECTED_TAG}"
-                        echo "将部署镜像: ${image}"
+                        LoggerUtils.info("将部署镜像: ${image}", this)
                         // 这里可以调用 kubectl 或 helm 部署
                         // sh "kubectl set image deployment/app app=${image} -n your-namespace"
                     }
