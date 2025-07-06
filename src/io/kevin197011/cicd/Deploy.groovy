@@ -21,20 +21,23 @@ class Deploy extends AbstractDeploy {
     }
 
     @Override
-    boolean gitClone(steps) {
-        String cmd = "sudo mkdir -p ${workDir} && cd ${workDir} && sudo rm -rf ${repo} && sudo git clone ${repo}"
+    boolean gitClone(def steps) {
+        String repoDir = getRepoDir()
+        String cmd = "sudo mkdir -p ${workDir} && cd ${workDir} && sudo rm -rf ${repoDir} && sudo git clone ${repo}"
         return execRemote(cmd, steps)
     }
 
     @Override
-    boolean gitPull(steps) {
-        String cmd = "cd ${workDir}/${repo} && sudo git pull"
+    boolean gitPull(def steps) {
+        String repoDir = getRepoDir()
+        String cmd = "cd ${workDir}/${repoDir} && sudo git pull"
         return execRemote(cmd, steps)
     }
 
     @Override
-    boolean doDeploy(steps) {
-        String cmd = "cd ${workDir}/${repo} && sudo ./deploy.sh"
+    boolean doDeploy(def steps) {
+        String repoDir = getRepoDir()
+        String cmd = "cd ${workDir}/${repoDir} && sudo ./deploy.sh"
         return execRemote(cmd, steps)
     }
 
@@ -44,6 +47,18 @@ class Deploy extends AbstractDeploy {
         assert host
         assert user
         assert (password || privateKey)
+    }
+
+    /**
+     * 提取仓库目录名，如 https://github.com/xxx/abc.git -> abc
+     */
+    private String getRepoDir() {
+        if (!repo) return ''
+        def name = repo.tokenize('/').last()
+        if (name.endsWith('.git')) {
+            name = name[0..-5]
+        }
+        return name
     }
 
     private boolean execRemote(String cmd, steps) {

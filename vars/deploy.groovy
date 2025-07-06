@@ -43,7 +43,7 @@ def call(Closure body) {
                 steps {
                     script {
                         deploy.validate()
-                        def ok = deploy.gitClone(config.git as String, this)
+                        def ok = deploy.gitClone(this)
                         LoggerUtils.info("gitClone result: ${ok}", this)
                     }
                 }
@@ -52,7 +52,7 @@ def call(Closure body) {
             stage('git pull') {
                 steps {
                     script {
-                        def ok = deploy.gitPull(config.projectDir ?: '', this)
+                        def ok = deploy.gitPull(this)
                         LoggerUtils.info("gitPull result: ${ok}", this)
                     }
                 }
