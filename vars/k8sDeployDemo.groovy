@@ -23,7 +23,14 @@ def call(Map config = [:]) {
                         def harborHost = repoParts[0]
                         def project = repoParts[1]
                         def app = repoParts[2]
-                        def tags = HarborUtils.getTags(harborHost, project, app, this, credId)
+                        def tags = []
+                        if (credId) {
+                            withCredentials([usernamePassword(credentialsId: credId, usernameVariable: 'HARBOR_USER', passwordVariable: 'HARBOR_PASS')]) {
+                                tags = HarborUtils.getTags(harborHost, project, app, env.HARBOR_USER, env.HARBOR_PASS)
+                            }
+                        } else {
+                            tags = HarborUtils.getTags(harborHost, project, app)
+                        }
                         env.SELECTED_TAG = input(
                             id: 'tagInput',
                             message: "请选择 Harbor 镜像版本",
