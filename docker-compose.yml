@@ -1,6 +1,9 @@
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    image: jenkins-custom:sshpass
     container_name: jenkins
     restart: unless-stopped
     ports:
@@ -20,7 +23,7 @@ services:
 
 # 使用方法：
 # 1. mkdir jenkins_home
-# 2. docker-compose up -d
-# 3. 访问 http://localhost:8080
-# 4. 初始密码在 ./jenkins_home/secrets/initialAdminPassword
+# 2. docker-compose build
+# 3. docker-compose up -d
+# 4. 访问 http://localhost:8080
 # 5. Jenkins 会自动注册 shared library，无需手动配置

@@ -7,10 +7,10 @@ package io.kevin197011.cicd
 abstract class AbstractDeploy implements Gitable, Deployable {
 
     @Override
-    abstract boolean gitClone(String repo, def steps)
+    abstract boolean gitClone(def steps)
 
     @Override
-    abstract boolean gitPull(String path, def steps)
+    abstract boolean gitPull(def steps)
 
     @Override
     abstract boolean doDeploy(def steps)

@@ -21,20 +21,20 @@ class Deploy extends AbstractDeploy {
     }
 
     @Override
-    boolean gitClone(String repo, steps) {
+    boolean gitClone(steps) {
         String cmd = "sudo mkdir -p ${workDir} && cd ${workDir} && sudo git clone ${repo}"
         return execRemote(cmd, steps)
     }
 
     @Override
-    boolean gitPull(String path, steps) {
-        String cmd = "cd ${workDir}/${path} && sudo git pull"
+    boolean gitPull(steps) {
+        String cmd = "cd ${workDir}/${repo} && sudo git pull"
         return execRemote(cmd, steps)
     }
 
     @Override
     boolean doDeploy(steps) {
-        String cmd = "cd ${workDir} && sudo ./deploy.sh"
+        String cmd = "cd ${workDir}/${repo} && sudo ./deploy.sh"
         return execRemote(cmd, steps)
     }
 
