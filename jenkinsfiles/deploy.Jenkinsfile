@@ -4,12 +4,11 @@
 
 @Library('devops-lib') _
 deploy {
-    git = 'https://github.com/your/repo.git'      // 代码仓库地址
+    git = 'https://github.com/kevin197011/kdeploy.git'      // 代码仓库地址
     host = '1.2.3.4'                              // 远程主机
     user = 'deployuser'                           // SSH 用户名
     password = 'yourpassword'                     // SSH 密码（或用 privateKey）
     // privateKey = credentials('your-ssh-key-id') // SSH 私钥内容（可选）
-    projectDir = 'repo'                           // 仓库目录名（git pull 用）
 }
 
 // 说明：
