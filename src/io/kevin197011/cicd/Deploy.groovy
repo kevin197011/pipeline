@@ -37,7 +37,7 @@ class Deploy extends AbstractDeploy {
     @Override
     boolean doDeploy(def steps) {
         String repoDir = getRepoDir()
-        String cmd = "cd ${workDir}/${repoDir} && sudo ./deploy.sh"
+        String cmd = "cd ${workDir}/${repoDir} && sudo bash ./deploy.sh"
         return execRemote(cmd, steps)
     }
 
