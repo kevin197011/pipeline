@@ -22,7 +22,7 @@ job(
     jobName: jobName,                 // Job 名称（可通过参数传递）
     branch: env.BRANCH ?: 'main',     // devops-lib 分支（可通过参数传递）
     version: env.VERSION ?: 'main',   // deploy.version（可通过参数传递）
-    dsl: jobDSL                       // job dsl（可通过参数传递）
+    jobDSL: jobDSL                       // job dsl（可通过参数传递）
 )
 
 // 说明：

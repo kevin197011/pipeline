@@ -18,7 +18,7 @@ deploy {
     host = \"localhost\"
 }
 """
-    def jobDSL = config.dsl ?: defaultJobDSL
+    def jobDSL = config.jobDSL ?: defaultJobDSL
     def job = new JenkinsJob(jobName, jobDSL)
 
     // pipeline
