@@ -10,12 +10,10 @@ require 'time'
 task default: %w[push]
 
 task :push do
-  system <<-SHELL
-    rubocop -A
-    git update-index --chmod=+x push
-    git add .
-    git commit -m "Update #{Time.now}"
-    git pull
-    git push origin main
-  SHELL
+  system 'rubocop -A'
+  system 'git update-index --chmod=+x push'
+  system 'git add .'
+  system 'git commit -m "Update #{Time.now}"'
+  system 'git pull'
+  system 'git push origin main'
 end
