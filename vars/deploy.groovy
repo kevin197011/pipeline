@@ -19,7 +19,7 @@ def call(Closure body) {
 
     // --- 动态生成参数 ---
     // 这里可以从文件、Git标签或者共享库获取
-    def versions = ['A','B','C'] // 可以替换为动态获取逻辑
+    def versions = ['A','B','C','D'] // 可以替换为动态获取逻辑
 
     // 使用 properties() 动态刷新参数
     properties([
