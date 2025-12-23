@@ -17,16 +17,22 @@ def call(Closure body) {
         config.privateKey
     )
 
-    //pipeline
-    pipeline {
-        // agent { node { label "Build"}}
-        agent any
+    // --- 动态生成参数 ---
+    // 这里可以从文件、Git标签或者共享库获取
+    def versions = ['A','B','C'] // 可以替换为动态获取逻辑
 
-        parameters {
-            string(name: 'appName', defaultValue: 'app', trim: true, description: 'appName')
-            booleanParam(name: 'flag', defaultValue: false, description: 'sure?')
-            choice(name: 'version', choices: ['A', 'B', 'C'], description: 'which version?')
-        }
+    // 使用 properties() 动态刷新参数
+    properties([
+        parameters([
+            string(name: 'appName', defaultValue: 'app', trim: true, description: 'appName'),
+            booleanParam(name: 'flag', defaultValue: false, description: 'sure?'),
+            choice(name: 'version', choices: versions, description: 'which version?')
+        ])
+    ])
+
+    // --- pipeline ---
+    pipeline {
+        agent any
 
         stages {
             stage('do?') {
@@ -67,7 +73,6 @@ def call(Closure body) {
                 }
             }
 
-            // stage test
             stage('test') {
                 steps {
                     script {
@@ -79,51 +84,23 @@ def call(Closure body) {
                 }
             }
 
-            // stage parallel
             stage('parallel') {
                 parallel {
                     stage('A') {
-                        steps {
-                            script {
-                                sleep(10)
-                            }
-                        }
+                        steps { script { sleep(10) } }
                     }
                     stage('B') {
-                        steps {
-                            script {
-                                sleep(10)
-                            }
-                        }
+                        steps { script { sleep(10) } }
                     }
                 }
             }
         }
 
         post {
-            always {
-                script {
-                    LoggerUtils.info('always', this)
-                }
-            }
-
-            success {
-                script {
-                    LoggerUtils.info('success', this)
-                }
-            }
-
-            failure {
-                script {
-                    LoggerUtils.info('failure', this)
-                }
-            }
-
-            aborted {
-                script {
-                    LoggerUtils.info('aborted', this)
-                }
-            }
+            always { script { LoggerUtils.info('always', this) } }
+            success { script { LoggerUtils.info('success', this) } }
+            failure { script { LoggerUtils.info('failure', this) } }
+            aborted { script { LoggerUtils.info('aborted', this) } }
         }
     }
 }
